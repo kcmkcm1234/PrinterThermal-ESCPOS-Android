@@ -121,8 +121,8 @@ public class PrinterTextParserColumn {
                                 textParser.addTextUnderline(PrinterCommands.TEXT_UNDERLINE_LARGE);
                                 break;
                             case PrinterTextParser.TAGS_FORMAT_TEXT_FONT:
-                                if (textParserTag.hasAttribute("size")) {
-                                    switch (textParserTag.getAttribute("size")) {
+                                if (textParserTag.hasAttribute(PrinterTextParser.ATTR_FORMAT_TEXT_SIZE)) {
+                                    switch (textParserTag.getAttribute(PrinterTextParser.ATTR_FORMAT_TEXT_SIZE)) {
                                         case PrinterTextParser.ATTR_FORMAT_TEXT_SIZE_SMALL:
                                             textParser.addTextSize(PrinterCommands.TEXT_SIZE_NORMAL);
                                             break;

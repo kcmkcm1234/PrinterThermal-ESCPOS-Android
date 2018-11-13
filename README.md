@@ -1,6 +1,6 @@
-# PrinterThermal-ESCPOS-Android
+# Android library for Printer Thermal ESC/POS Command
 
-Usefull library to help Android developers to print with bluetooth thermal printers.
+Usefull library to help Android developers to print with bluetooth thermal printers ESC/POS.
 
 ## Bluetooth permission
 
@@ -48,7 +48,7 @@ printer
         "[L]31547 PERPETES\n" +
         "[L]Tel : 0645789663\n" +
         "[L]\n" +
-        "[C]<barcode type='ean13' size='10'>831254784551</barcode>\n"
+        "[C]<barcode type='ean13' height='10'>831254784551</barcode>\n"
     )
     .disconnectPrinter();
 ```
@@ -107,24 +107,34 @@ Example :
 
 `<img></img>` tag allows you to print image. Inside the tag you need to write a hexadecimal string of an image.
 
-**/!\\ WARNING /!\\** : This tag must be in one column line. Image tag must be the only tag of the line (except the alignment tag before).
-
 Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `BitmapDrawable` or `Bitmap` to hexadecimal string.
 
 - `<img>`hexadecimal string of an image`</img>`
+
+**/!\\ WARNING /!\\** : This tag has several constraints :
+
+- A line that contains `<img></img>` can have only one alignment tag and it must be at the beginning of the line.
+- `<img>` must be directly preceded by nothing or an alignment tag (`[L][C][R]`).
+- `</img>` must be directly followed by a new line `\n`.
+- You can't write text on a line that contains `<img></img>`.
 
 ### Bar code
 
 `<barcode></barcode>` tag allows you to print a bar code. Inside the tag you need to write the code number to print.
 
-**/!\\ WARNING /!\\** : This tag must be in one column line. Bar code tag must be the only tag of the line (except the alignment tag before).
+- `<barcode>451278452159</barcode>` : **(12 numbers)** Prints a EAN13 bar code with a height of 10 millimeters.
+- `<barcode height='15'>451278452159</barcode>` : **(12 numbers)** Prints a EAN13 bar code with a height of 15 millimeters.
+- `<barcode type='ean13'>451278452159</barcode>` : **(12 numbers)** Prints a EAN13 bar code with a height of 10 millimeters.
+- `<barcode type='ean8'>4512784</barcode>` : **(7 numbers)** Prints a EAN8 bar code with a height of 10 millimeters.
+- `<barcode type='upca' height='20'>4512784521</barcode>` : **(11 numbers)** Prints a UPC-A bar code with a height of 20 millimeters.
+- `<barcode type='upce' height='25'>051278</barcode>` : **(6 numbers)** Prints a UPC-E bar code with a height of 25 millimeters.
 
-- `<barcode>451278452159</barcode>` : **(12 numbers)** Prints an EAN13 bar code with a height of 10 millimeters.
-- `<barcode size='15'>451278452159</barcode>` : **(12 numbers)** Prints an EAN13 bar code with a height of 15 millimeters.
-- `<barcode type='ean13'>451278452159</barcode>` : **(12 numbers)** Prints an EAN13 bar code with a height of 10 millimeters.
-- `<barcode type='ean8'>4512784</barcode>` : **(7 numbers)** Prints an EAN8 bar code with a height of 10 millimeters.
-- `<barcode type='upca' size='20'>4512784521</barcode>` : **(11 numbers)** Prints an UPC-A bar code with a height of 20 millimeters.
-- `<barcode type='upce' size='25'>051278</barcode>` : **(6 numbers)** Prints an UPC-E bar code with a height of 25 millimeters.
+**/!\\ WARNING /!\\** : This tag has several constraints :
+
+- A line that contains `<barcode></barcode>` can have only one alignment tag and it must be at the beginning of the line.
+- `<barcode>` must be directly preceded by nothing or an alignment tag (`[L][C][R]`).
+- `</barcode>` must be directly followed by a new line `\n`.
+- You can't write text on a line that contains `<barcode></barcode>`.
 
 ## Class list
 

@@ -11,6 +11,11 @@ import lib.printer.thermal.PrinterCommands;
 
 public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnexion {
     
+    /**
+     * Convert
+     * @param bitmap
+     * @return
+     */
     public static byte[] bitmapToBytes(Bitmap bitmap) {
         int bitmapWidth = bitmap.getWidth(),
             bitmapHeight = bitmap.getHeight();

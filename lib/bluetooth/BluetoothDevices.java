@@ -8,10 +8,17 @@ import java.util.Set;
 public class BluetoothDevices {
     protected BluetoothAdapter bluetoothAdapter;
     
+    /**
+     * Create a new instance of BluetoothDevices
+     */
     public BluetoothDevices() {
         this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
     
+    /**
+     * Get a list of bluetooth devices available.
+     * @return Return an array of BluetoothDeviceSocketConnexion instance
+     */
     public BluetoothDeviceSocketConnexion[] getList() {
         if (this.bluetoothAdapter == null) {
             return null;
