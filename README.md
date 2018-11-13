@@ -1,6 +1,6 @@
 # PrinterThermal-ESCPOS-Android
 
-Usefull library to help Android developpers to print with bluetooth thermal printer.
+Usefull library to help Android developers to print with bluetooth thermal printers.
 
 ## Bluetooth permission
 
@@ -128,7 +128,15 @@ Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `Bit
 
 ## Class list
 
-### Class : `Printer`
+### Class : `lib.printer.thermal.bluetooth.BluetoothPrinters`
+
+...
+
+### Class : `lib.printer.thermal.bluetooth.BluetoothPrinterSocketConnexion`
+
+...
+
+### Class : `lib.printer.thermal.Printer`
 
 #### Constructor : `Printer(BluetoothPrinterSocketConnexion printer, int printerDpi, float printingWidthMM, int nbrCharactersPerLine)`
 - **param** *printer* : Instance of a connected bluetooth printer
@@ -174,4 +182,8 @@ Print a formatted text. Read the ["Formatted Text : Syntax guide" section](#form
 Convert Bitmap object to ESC/POS image.
 - **param** *bitmap* : Instance of Bitmap
 - **return** *byte[]* : Bytes contain the image in ESC/POS command
+
+### Class : `lib.printer.thermal.textparser.PrinterTextParserImg`
+
+...
 
