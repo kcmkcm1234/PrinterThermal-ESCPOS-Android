@@ -10,6 +10,12 @@ import lib.printer.thermal.PrinterCommands;
 
 public class PrinterTextParserImg implements PrinterTextParserElement {
     
+    /**
+     *
+     * @param printer
+     * @param drawable
+     * @return
+     */
     public static String bitmapToHexadecimalString(Printer printer, Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return PrinterTextParserImg.bitmapToHexadecimalString(printer, (BitmapDrawable) drawable);
@@ -17,12 +23,24 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
         return "";
     }
     
+    /**
+     *
+     * @param printer
+     * @param bitmapDrawable
+     * @return
+     */
     public static String bitmapToHexadecimalString(Printer printer, BitmapDrawable bitmapDrawable) {
         return PrinterTextParserImg.bitmapToHexadecimalString(printer, bitmapDrawable.getBitmap());
     }
     
+    /**
+     *
+     * @param printer
+     * @param bitmap
+     * @return
+     */
     public static String bitmapToHexadecimalString(Printer printer, Bitmap bitmap) {
-        return PrinterTextParserImg.bytesToHexadecimalString(Printer.bitmapToBytes(printer, bitmap));
+        return PrinterTextParserImg.bytesToHexadecimalString(printer.bitmapToBytes(bitmap));
     }
     
     public static String bytesToHexadecimalString(byte[] bytes) {
@@ -36,7 +54,6 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
         }
         return imageHexString.toString();
     }
-    
     
     public static byte[] hexadecimalStringToBytes(String hexString) {
         byte[] bytes = new byte[0];

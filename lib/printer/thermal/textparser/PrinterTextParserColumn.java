@@ -17,6 +17,12 @@ public class PrinterTextParserColumn {
     private PrinterTextParserLine textParserLine;
     private PrinterTextParserElement[] elements = new PrinterTextParserElement[0];
     
+    /**
+     * Create a new instance of PrinterTextParserColumn.
+     *
+     * @param textParserLine Parent PrinterTextParserLine instance
+     * @param textColumn Text that the column contain
+     */
     public PrinterTextParserColumn(PrinterTextParserLine textParserLine, String textColumn) {
         this.textParserLine = textParserLine;
         PrinterTextParser textParser = this.textParserLine.getTextParser();
@@ -102,17 +108,8 @@ public class PrinterTextParserColumn {
                             case PrinterTextParser.TAGS_FORMAT_TEXT_UNDERLINE:
                                 textParser.dropLastTextUnderline(PrinterCommands.TEXT_UNDERLINE_LARGE);
                                 break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_SMALL:
-                                textParser.dropLastTextSize(PrinterCommands.TEXT_SIZE_NORMAL);
-                                break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_TALL:
-                                textParser.dropLastTextSize(PrinterCommands.TEXT_SIZE_DOUBLE_HEIGHT);
-                                break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_WIDE:
-                                textParser.dropLastTextSize(PrinterCommands.TEXT_SIZE_DOUBLE_WIDTH);
-                                break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_BIG:
-                                textParser.dropLastTextSize(PrinterCommands.TEXT_SIZE_BIG);
+                            case PrinterTextParser.TAGS_FORMAT_TEXT_FONT:
+                                textParser.dropLastTextSize();
                                 break;
                         }
                     } else {
@@ -123,17 +120,26 @@ public class PrinterTextParserColumn {
                             case PrinterTextParser.TAGS_FORMAT_TEXT_UNDERLINE:
                                 textParser.addTextUnderline(PrinterCommands.TEXT_UNDERLINE_LARGE);
                                 break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_SMALL:
-                                textParser.addTextSize(PrinterCommands.TEXT_SIZE_NORMAL);
-                                break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_TALL:
-                                textParser.addTextSize(PrinterCommands.TEXT_SIZE_DOUBLE_HEIGHT);
-                                break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_WIDE:
-                                textParser.addTextSize(PrinterCommands.TEXT_SIZE_DOUBLE_WIDTH);
-                                break;
-                            case PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_BIG:
-                                textParser.addTextSize(PrinterCommands.TEXT_SIZE_BIG);
+                            case PrinterTextParser.TAGS_FORMAT_TEXT_FONT:
+                                if (textParserTag.hasAttribute("size")) {
+                                    switch (textParserTag.getAttribute("size")) {
+                                        case PrinterTextParser.ATTR_FORMAT_TEXT_SIZE_SMALL:
+                                            textParser.addTextSize(PrinterCommands.TEXT_SIZE_NORMAL);
+                                            break;
+                                        case PrinterTextParser.ATTR_FORMAT_TEXT_SIZE_MEDIUM:
+                                            textParser.addTextSize(PrinterCommands.TEXT_SIZE_MEDIUM);
+                                            break;
+                                        case PrinterTextParser.ATTR_FORMAT_TEXT_SIZE_TALL:
+                                            textParser.addTextSize(PrinterCommands.TEXT_SIZE_DOUBLE_HEIGHT);
+                                            break;
+                                        case PrinterTextParser.ATTR_FORMAT_TEXT_SIZE_WIDE:
+                                            textParser.addTextSize(PrinterCommands.TEXT_SIZE_DOUBLE_WIDTH);
+                                            break;
+                                        case PrinterTextParser.ATTR_FORMAT_TEXT_SIZE_BIG:
+                                            textParser.addTextSize(PrinterCommands.TEXT_SIZE_BIG);
+                                            break;
+                                    }
+                                }
                                 break;
                         }
                     }

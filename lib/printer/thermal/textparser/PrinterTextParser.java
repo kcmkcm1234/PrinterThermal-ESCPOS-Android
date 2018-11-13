@@ -18,13 +18,16 @@ public class PrinterTextParser {
     public static final String ATTR_BARCODE_UPCA = "upca";
     public static final String ATTR_BARCODE_UPCE = "upce";
     
+    public static final String TAGS_FORMAT_TEXT_FONT = "font";
     public static final String TAGS_FORMAT_TEXT_BOLD = "b";
     public static final String TAGS_FORMAT_TEXT_UNDERLINE = "u";
-    public static final String TAGS_FORMAT_TEXT_SIZE_BIG = "big";
-    public static final String TAGS_FORMAT_TEXT_SIZE_TALL = "tall";
-    public static final String TAGS_FORMAT_TEXT_SIZE_WIDE = "wide";
-    public static final String TAGS_FORMAT_TEXT_SIZE_SMALL = "small";
-    public static final String[] TAGS_FORMAT_TEXT = {PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_SMALL, PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_TALL, PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_WIDE, PrinterTextParser.TAGS_FORMAT_TEXT_SIZE_BIG, PrinterTextParser.TAGS_FORMAT_TEXT_BOLD, PrinterTextParser.TAGS_FORMAT_TEXT_UNDERLINE};
+    public static final String[] TAGS_FORMAT_TEXT = {PrinterTextParser.TAGS_FORMAT_TEXT_FONT, PrinterTextParser.TAGS_FORMAT_TEXT_BOLD, PrinterTextParser.TAGS_FORMAT_TEXT_UNDERLINE};
+    
+    public static final String ATTR_FORMAT_TEXT_SIZE_BIG = "big";
+    public static final String ATTR_FORMAT_TEXT_SIZE_TALL = "tall";
+    public static final String ATTR_FORMAT_TEXT_SIZE_WIDE = "wide";
+    public static final String ATTR_FORMAT_TEXT_SIZE_SMALL = "small";
+    public static final String ATTR_FORMAT_TEXT_SIZE_MEDIUM = "medium";
     
     
     private static String regexAlignTags;
@@ -105,6 +108,12 @@ public class PrinterTextParser {
         return this;
     }
     
+    public PrinterTextParser dropLastTextSize() {
+        if (this.textSize.length > 1) {
+            this.textSize = PrinterTextParser.arrayByteDropLast(this.textSize);
+        }
+        return this;
+    }
     public PrinterTextParser dropLastTextSize(byte[] isLastByte) {
         if (this.textSize[this.textSize.length - 1].equals(isLastByte)) {
             this.textSize = PrinterTextParser.arrayByteDropLast(this.textSize);

@@ -59,6 +59,9 @@ public class PrinterTextParserTag {
     public String getAttribute(String key) {
         return this.attributes.get(key);
     }
+    public boolean hasAttribute(String key) {
+        return this.attributes.containsKey(key);
+    }
     
     public int getLength() {
         return this.length;
