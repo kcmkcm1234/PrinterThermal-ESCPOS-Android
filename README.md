@@ -2,9 +2,7 @@
 
 Usefull library to help Android developpers to print with bluetooth thermal printer.
 
-## How to use it
-
-### Bluetooth permission
+## Bluetooth permission
 
 Be sure to have `Manifest.permission.BLUETOOTH` permission for your app. Like this :
 
@@ -16,7 +14,7 @@ if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != Pa
 }
 ```
 
-### Code example
+## Code example
 
 The code below is an example to write in your activity :
 
@@ -55,13 +53,13 @@ printer
     .disconnectPrinter();
 ```
 
-### Formatted Text : Syntax guide
+## Formatted Text : Syntax guide
 
-#### New line
+### New line
 
 Use `\n` to create a new line of text.
 
-#### Text alignment and column separation
+### Text alignment and column separation
 
 Add an alignment tag on a same line of text implicitly create a new column.
 
@@ -81,9 +79,9 @@ Example :
 - `[L]Some[R]text[R]here` : Three columns.
 - `[L][R]text[R]here` : Three columns. The first is empty but it takes a third of the available space.
 
-#### Font
+### Font
 
-##### Size
+#### Size
 
 `<font></font>` tag allows you to change the font size. Default size is `medium`.
 
@@ -93,29 +91,33 @@ Example :
 - `<font size='tall'>Some text</font>` : Double height of medium size
 - `<font size='big'>Some text</font>` : Double width and height of medium size
 
-##### Bold
+#### Bold
 
 `<b></b>` tag allows you to change the font weight.
 
 - `<b>Some text</b>`
 
-##### Underline
+#### Underline
 
 `<u></u>` tag allows you to underline the text.
 
 - `<u>Some text</u>`
 
-#### Image
+### Image
 
 `<img></img>` tag allows you to print image. Inside the tag you need to write a hexadecimal string of an image.
+
+**/!\\ WARNING /!\\** : This tag must be in one column line. Image tag must be the only tag of the line (except the alignment tag before).
 
 Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `BitmapDrawable` or `Bitmap` to hexadecimal string.
 
 - `<img>`hexadecimal string of an image`</img>`
 
-#### Bar code
+### Bar code
 
 `<barcode></barcode>` tag allows you to print a bar code. Inside the tag you need to write the code number to print.
+
+**/!\\ WARNING /!\\** : This tag must be in one column line. Bar code tag must be the only tag of the line (except the alignment tag before).
 
 - `<barcode>451278452159</barcode>` : **(12 numbers)** Prints an EAN13 bar code with a height of 10 millimeters.
 - `<barcode size='15'>451278452159</barcode>` : **(12 numbers)** Prints an EAN13 bar code with a height of 15 millimeters.
@@ -124,51 +126,51 @@ Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `Bit
 - `<barcode type='upca' size='20'>4512784521</barcode>` : **(11 numbers)** Prints an UPC-A bar code with a height of 20 millimeters.
 - `<barcode type='upce' size='25'>051278</barcode>` : **(6 numbers)** Prints an UPC-E bar code with a height of 25 millimeters.
 
-### Class list
+## Class list
 
-#### Class : `Printer`
+### Class : `Printer`
 
-##### Constructor : `Printer(BluetoothPrinterSocketConnexion printer, int printerDpi, float printingWidthMM, int nbrCharactersPerLine)`
+#### Constructor : `Printer(BluetoothPrinterSocketConnexion printer, int printerDpi, float printingWidthMM, int nbrCharactersPerLine)`
 - **param** *printer* : Instance of a connected bluetooth printer
 - **param** *printerDpi* : DPI of the connected printer
 - **param** *printingWidthMM* : Printing width in millimeters
 - **param** *nbrCharactersPerLine* : The maximum number of characters that can be printed on a line.
 
-##### Method : `disconnectPrinter()`
+#### Method : `disconnectPrinter()`
 Close the Bluetooth connexion with the printer.
 - **return** *Printer* : Fluent interface
 
-##### Method : `getNbrCharactersPerLine()`
+#### Method : `getNbrCharactersPerLine()`
 Get the maximum number of characters that can be printed on a line.
 - **return** *int*
 
-##### Method : `getPrintingWidthMM()`
+#### Method : `getPrintingWidthMM()`
 Get the printing width in millimeters
 - **return** *float*
 
-##### Method : `getPrinterDpi()`
+#### Method : `getPrinterDpi()`
 Get the printer DPI
 - **return** *int*
 
-##### Method : `getPrintingWidthPx`
+#### Method : `getPrintingWidthPx`
 Get the printing width in dot
 - **return** *int*
 
-##### Method : `getCharSizeWidthPx()`
+#### Method : `getCharSizeWidthPx()`
 Get the number of dot that a printed character contain
 - **return** *int*
 
-##### Method : `mmToPx(float mmSize)`
+#### Method : `mmToPx(float mmSize)`
 Convert from millimeters to dot the mmSize variable.
 - **param** *mmSize* : Distance in millimeters to be converted
 - **return** *int*
 
-##### Method : `printFormattedText(String text)`
-Print a formatted text. Read the ["Formatted Text : Syntax guide" section](#formatted-text-syntax-guide) for more information about text formatting options.
+#### Method : `printFormattedText(String text)`
+Print a formatted text. Read the ["Formatted Text : Syntax guide" section](#formatted-text--syntax-guide) for more information about text formatting options.
 - **param** *text* : Formatted text to be printed.
 - **return** *Printer* : Fluent interface
 
-##### Method : `bitmapToBytes(Bitmap bitmap)`
+#### Method : `bitmapToBytes(Bitmap bitmap)`
 Convert Bitmap object to ESC/POS image.
 - **param** *bitmap* : Instance of Bitmap
 - **return** *byte[]* : Bytes contain the image in ESC/POS command
