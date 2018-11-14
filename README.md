@@ -122,17 +122,17 @@ Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `Bit
 
 `<barcode></barcode>` tag allows you to print a barcode. Inside the tag you need to write the code number to print.
 
-- `<barcode>451278452159</barcode>` : **(12 numbers)**
+- `<barcode>451278452159</barcode>` : **(12 numbers)**  
 Prints a EAN13 barcode with a height of 10 millimeters.
-- `<barcode height='15'>451278452159</barcode>` : **(12 numbers)**
+- `<barcode height='15'>451278452159</barcode>` : **(12 numbers)**  
 Prints a EAN13 barcode with a height of 15 millimeters.
-- `<barcode type='ean13'>451278452159</barcode>` : **(12 numbers)**
+- `<barcode type='ean13'>451278452159</barcode>` : **(12 numbers)**  
 Prints a EAN13 barcode with a height of 10 millimeters.
-- `<barcode type='ean8'>4512784</barcode>` : **(7 numbers)**
+- `<barcode type='ean8'>4512784</barcode>` : **(7 numbers)**  
 Prints a EAN8 barcode with a height of 10 millimeters.
-- `<barcode type='upca' height='20'>4512784521</barcode>` : **(11 numbers)**
+- `<barcode type='upca' height='20'>4512784521</barcode>` : **(11 numbers)**  
 Prints a UPC-A barcode with a height of 20 millimeters.
-- `<barcode type='upce' height='25'>051278</barcode>` : **(6 numbers)**
+- `<barcode type='upce' height='25'>051278</barcode>` : **(6 numbers)**  
 Prints a UPC-E barcode with a height of 25 millimeters.
 
 **/!\\ WARNING /!\\** : This tag has several constraints :
