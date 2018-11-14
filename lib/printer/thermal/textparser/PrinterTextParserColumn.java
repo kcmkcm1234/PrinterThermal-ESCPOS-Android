@@ -43,11 +43,11 @@ public class PrinterTextParserColumn {
         }
         
         String trimmedTextColumn = textColumn.trim();
-        boolean isImgOrBarCodeLine = false;
+        boolean isImgOrBarcodeLine = false;
         
         if (this.textParserLine.getNbrColumns() == 1 && trimmedTextColumn.indexOf("<") == 0) {
             // =================================================================
-            // Image or Bar Code Lines
+            // Image or Barcode Lines
             int openTagIndex = trimmedTextColumn.indexOf("<"),
                 openTagEndIndex = trimmedTextColumn.indexOf(">", openTagIndex + 1) + 1;
             
@@ -66,17 +66,17 @@ public class PrinterTextParserColumn {
                                     this.appendImage(textAlign, trimmedTextColumn.substring(openTagEndIndex, closeTagPosition));
                                     break;
                                 case PrinterTextParser.TAGS_BARCODE:
-                                    this.appendBarCode(textAlign, textParserTag.getAttributes(), trimmedTextColumn.substring(openTagEndIndex, closeTagPosition));
+                                    this.appendBarcode(textAlign, textParserTag.getAttributes(), trimmedTextColumn.substring(openTagEndIndex, closeTagPosition));
                                     break;
                             }
-                            isImgOrBarCodeLine = true;
+                            isImgOrBarcodeLine = true;
                         }
                         break;
                 }
             }
         }
         
-        if(!isImgOrBarCodeLine) {
+        if(!isImgOrBarcodeLine) {
             // =================================================================
             // If the tag is for format text
             
@@ -247,12 +247,12 @@ public class PrinterTextParserColumn {
         return this.appendElement(new PrinterTextParserImg(this, textAlign, hexString));
     }
     
-    private PrinterTextParserColumn prependBarCode(String textAlign, Hashtable<String,String> barCodeAttributes, String code) {
-        return this.prependElement(new PrinterTextParserBarCode(this, textAlign, barCodeAttributes, code));
+    private PrinterTextParserColumn prependBarcode(String textAlign, Hashtable<String,String> barcodeAttributes, String code) {
+        return this.prependElement(new PrinterTextParserBarcode(this, textAlign, barcodeAttributes, code));
     }
     
-    private PrinterTextParserColumn appendBarCode(String textAlign, Hashtable<String,String> barCodeAttributes, String code) {
-        return this.appendElement(new PrinterTextParserBarCode(this, textAlign, barCodeAttributes, code));
+    private PrinterTextParserColumn appendBarcode(String textAlign, Hashtable<String,String> barcodeAttributes, String code) {
+        return this.appendElement(new PrinterTextParserBarcode(this, textAlign, barcodeAttributes, code));
     }
     
     private PrinterTextParserColumn prependElement(PrinterTextParserElement element) {

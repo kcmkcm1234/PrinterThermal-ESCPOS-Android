@@ -5,15 +5,15 @@ import java.util.Hashtable;
 import lib.printer.thermal.Printer;
 import lib.printer.thermal.PrinterCommands;
 
-public class PrinterTextParserBarCode implements PrinterTextParserElement {
+public class PrinterTextParserBarcode implements PrinterTextParserElement {
     
     private int length;
     private int height;
     private byte[] align;
     private String code;
-    private int barCodeType;
+    private int barcodeType;
     
-    public PrinterTextParserBarCode(PrinterTextParserColumn printerTextParserColumn, String textAlign, Hashtable<String, String> barCodeAttributes, String code) {
+    public PrinterTextParserBarcode(PrinterTextParserColumn printerTextParserColumn, String textAlign, Hashtable<String, String> barcodeAttributes, String code) {
         Printer printer = printerTextParserColumn.getLine().getTextParser().getPrinter();
         code = code.trim();
         
@@ -27,16 +27,16 @@ public class PrinterTextParserBarCode implements PrinterTextParserElement {
                 break;
         }
         
-        this.barCodeType = PrinterCommands.BARCODE_EAN13;
-        switch (barCodeAttributes.get(PrinterTextParser.ATTR_BARCODE_TYPE)) {
+        this.barcodeType = PrinterCommands.BARCODE_EAN13;
+        switch (barcodeAttributes.get(PrinterTextParser.ATTR_BARCODE_TYPE)) {
             case PrinterTextParser.ATTR_BARCODE_TYPE_EAN8:
-                this.barCodeType = PrinterCommands.BARCODE_EAN8;
+                this.barcodeType = PrinterCommands.BARCODE_EAN8;
                 break;
             case PrinterTextParser.ATTR_BARCODE_TYPE_UPCA:
-                this.barCodeType = PrinterCommands.BARCODE_UPCA;
+                this.barcodeType = PrinterCommands.BARCODE_UPCA;
                 break;
             case PrinterTextParser.ATTR_BARCODE_TYPE_UPCE:
-                this.barCodeType = PrinterCommands.BARCODE_UPCE;
+                this.barcodeType = PrinterCommands.BARCODE_UPCE;
                 break;
         }
         
@@ -45,8 +45,8 @@ public class PrinterTextParserBarCode implements PrinterTextParserElement {
         
         this.height = printer.mmToPx(10f);
         try {
-            if (barCodeAttributes.containsKey(PrinterTextParser.ATTR_BARCODE_HEIGHT)) {
-                this.height = printer.mmToPx(Float.parseFloat(barCodeAttributes.get(PrinterTextParser.ATTR_BARCODE_HEIGHT)));
+            if (barcodeAttributes.containsKey(PrinterTextParser.ATTR_BARCODE_HEIGHT)) {
+                this.height = printer.mmToPx(Float.parseFloat(barcodeAttributes.get(PrinterTextParser.ATTR_BARCODE_HEIGHT)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,8 +59,8 @@ public class PrinterTextParserBarCode implements PrinterTextParserElement {
         return this.code;
     }
     
-    public int getBarCodeType() {
-        return this.barCodeType;
+    public int getBarcodeType() {
+        return this.barcodeType;
     }
     
     public int getHeight() {

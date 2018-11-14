@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import lib.printer.thermal.bluetooth.BluetoothPrinterSocketConnexion;
 import lib.printer.thermal.textparser.PrinterTextParser;
-import lib.printer.thermal.textparser.PrinterTextParserBarCode;
+import lib.printer.thermal.textparser.PrinterTextParserBarcode;
 import lib.printer.thermal.textparser.PrinterTextParserColumn;
 import lib.printer.thermal.textparser.PrinterTextParserElement;
 import lib.printer.thermal.textparser.PrinterTextParserImg;
@@ -145,11 +145,11 @@ public class Printer {
                     } else if(element instanceof PrinterTextParserImg) {
                         PrinterTextParserImg img = (PrinterTextParserImg) element;
                         this.bluetoothPrinter.printImage(img.getImage());
-                    } else if(element instanceof PrinterTextParserBarCode) {
-                        PrinterTextParserBarCode barCode = (PrinterTextParserBarCode) element;
+                    } else if(element instanceof PrinterTextParserBarcode) {
+                        PrinterTextParserBarcode barcode = (PrinterTextParserBarcode) element;
                         this.bluetoothPrinter
-                            .setAlign(barCode.getAlign())
-                            .printBarCode(barCode.getBarCodeType(), barCode.getCode(), barCode.getHeight());
+                            .setAlign(barcode.getAlign())
+                            .printBarcode(barcode.getBarcodeType(), barcode.getCode(), barcode.getHeight());
                     }
                 }
             }

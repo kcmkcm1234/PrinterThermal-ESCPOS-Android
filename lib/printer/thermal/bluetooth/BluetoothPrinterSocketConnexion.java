@@ -12,9 +12,10 @@ import lib.printer.thermal.PrinterCommands;
 public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnexion {
     
     /**
-     * Convert
-     * @param bitmap
-     * @return
+     * Convert Bitmap instance to a byte array compatible with ESC/POS printer.
+     *
+     * @param bitmap Bitmap to be convert
+     * @return Bytes contain the image in ESC/POS command
      */
     public static byte[] bitmapToBytes(Bitmap bitmap) {
         int bitmapWidth = bitmap.getWidth(),
@@ -58,6 +59,11 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
     
     protected OutputStream outputStream = null;
     
+    /**
+     * Create new instance of BluetoothPrinterSocketConnexion.
+     *
+     * @param device an instance of android.bluetooth.BluetoothDevice
+     */
     public BluetoothPrinterSocketConnexion(BluetoothDevice device) {
         super(device);
     }
@@ -66,6 +72,11 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return (this.outputStream != null);
     }
     
+    /**
+     * Start socket connexion and open stream with the bluetooth device.
+     *
+     * @return return true if success
+     */
     @Override
     public boolean connect() {
         try {
@@ -80,6 +91,11 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return false;
     }
     
+    /**
+     * Close the socket connexion and stream with the bluetooth device.
+     *
+     * @return return true if success
+     */
     @Override
     public boolean disconnect() {
         super.disconnect();
@@ -97,6 +113,11 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return false;
     }
     
+    /**
+     * Flushes the opened stream and forces any buffered bytes to be written out.
+     *
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion flush() {
         if (this.isOpenedStream()) {
             try {
@@ -108,6 +129,13 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return this;
     }
     
+    /**
+     * Set the alignment of text and barcodes.
+     * Don't works with image.
+     *
+     * @param align Set the alignment of text and barcodes. Use PrinterCommands.TEXT_ALIGN_... constants
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion setAlign(byte[] align) {
         if (!this.isOpenedStream()) {
             return this;
@@ -120,42 +148,108 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return this;
     }
     
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion printText(String text) {
         return this.printText(text, 0);
     }
     
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param maxlength Number of bytes printed
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion printText(String text, int maxlength) {
         return this.printText(text, null, null, null, maxlength);
     }
     
-    public BluetoothPrinterSocketConnexion printText(String text, byte[] textStyle) {
-        return this.printText(text, textStyle, 0);
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param textSize Set the text size. Use PrinterCommands.TEXT_SIZE_... constants
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printText(String text, byte[] textSize) {
+        return this.printText(text, textSize, 0);
     }
     
-    public BluetoothPrinterSocketConnexion printText(String text, byte[] textStyle, int maxlength) {
-        return this.printText(text, textStyle, null, null, maxlength);
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param textSize Set the text size. Change the text size. Use PrinterCommands.TEXT_SIZE_... constants
+     * @param maxlength Number of bytes printed
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printText(String text, byte[] textSize, int maxlength) {
+        return this.printText(text, textSize, null, null, maxlength);
     }
     
-    public BluetoothPrinterSocketConnexion printText(String text, byte[] textStyle, byte[] textBold) {
-        return this.printText(text, textStyle, textBold, 0);
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param textSize Set the text size. Use PrinterCommands.TEXT_SIZE_... constants
+     * @param textBold Set the text weight. Use PrinterCommands.TEXT_WEIGHT_... constants
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printText(String text, byte[] textSize, byte[] textBold) {
+        return this.printText(text, textSize, textBold, 0);
     }
     
-    public BluetoothPrinterSocketConnexion printText(String text, byte[] textStyle, byte[] textBold, int maxlength) {
-        return this.printText(text, textStyle, textBold, null, maxlength);
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param textSize Set the text size. Use PrinterCommands.TEXT_SIZE_... constants
+     * @param textBold Set the text weight. Use PrinterCommands.TEXT_WEIGHT_... constants
+     * @param maxlength Number of bytes printed
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printText(String text, byte[] textSize, byte[] textBold, int maxlength) {
+        return this.printText(text, textSize, textBold, null, maxlength);
     }
     
-    public BluetoothPrinterSocketConnexion printText(String text, byte[] textStyle, byte[] textBold, byte[] textUnderline) {
-        return this.printText(text, textStyle, textBold, textUnderline, 0);
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param textSize Set the text size. Use PrinterCommands.TEXT_SIZE_... constants
+     * @param textBold Set the text weight. Use PrinterCommands.TEXT_WEIGHT_... constants
+     * @param textUnderline Set the underlining of the text. Use PrinterCommands.TEXT_UNDERLINE_... constants
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printText(String text, byte[] textSize, byte[] textBold, byte[] textUnderline) {
+        return this.printText(text, textSize, textBold, textUnderline, 0);
     }
     
-    public BluetoothPrinterSocketConnexion printText(String text, byte[] textStyle, byte[] textBold, byte[] textUnderline, int maxlength) {
+    /**
+     * Print text with the connected printer.
+     *
+     * @param text Text to be printed
+     * @param textSize Set the text size. Use PrinterCommands.TEXT_SIZE_... constants
+     * @param textBold Set the text weight. Use PrinterCommands.TEXT_WEIGHT_... constants
+     * @param textUnderline Set the underlining of the text. Use PrinterCommands.TEXT_UNDERLINE_... constants
+     * @param maxlength Number of bytes printed
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printText(String text, byte[] textSize, byte[] textBold, byte[] textUnderline, int maxlength) {
         if (!this.isOpenedStream()) {
             return this;
         }
         
         try {
+            byte[] textBytes = text.getBytes("ISO-8859-1");
+            
             if (maxlength == 0) {
-                maxlength = text.getBytes("ISO-8859-1").length;
+                maxlength = textBytes.length;
             }
             
             this.outputStream.write(PrinterCommands.WESTERN_EUROPE_ENCODING);
@@ -163,8 +257,8 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
             this.outputStream.write(PrinterCommands.TEXT_WEIGHT_NORMAL);
             this.outputStream.write(PrinterCommands.TEXT_UNDERLINE_OFF);
             
-            if (textStyle != null) {
-                this.outputStream.write(textStyle);
+            if (textSize != null) {
+                this.outputStream.write(textSize);
             }
             if (textBold != null) {
                 this.outputStream.write(textBold);
@@ -173,7 +267,7 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
                 this.outputStream.write(textUnderline);
             }
             
-            this.outputStream.write(text.getBytes("ISO-8859-1"), 0, maxlength);
+            this.outputStream.write(textBytes, 0, maxlength);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -181,9 +275,22 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return this;
     }
     
+    /**
+     * Print image with the connected printer.
+     *
+     * @param bitmap Instance of Bitmap to be printed
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion printImage(Bitmap bitmap) {
         return this.printImage(BluetoothPrinterSocketConnexion.bitmapToBytes(bitmap));
     }
+    
+    /**
+     * Print image with the connected printer.
+     *
+     * @param image Bytes contain the image in ESC/POS command
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion printImage(byte[] image) {
         if (!this.isOpenedStream()) {
             return this;
@@ -199,78 +306,86 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return this;
     }
     
-    public BluetoothPrinterSocketConnexion printBarCode(int barCodeType, String barCode, int heightPx) {
+    /**
+     * Print a barcode with the connected printer.
+     *
+     * @param barcodeType Set the barcode type. Use PrinterCommands.BARCODE_... constants
+     * @param barcode String that contains code numbers
+     * @param heightPx dot height of the barcode
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion printBarcode(int barcodeType, String barcode, int heightPx) {
         if (!this.isOpenedStream()) {
             return this;
         }
         
-        int barCodeLength = 0;
+        int barcodeLength = 0;
         
-        switch (barCodeType) {
+        switch (barcodeType) {
             case PrinterCommands.BARCODE_UPCA:
-                barCodeLength = 11;
+                barcodeLength = 11;
                 break;
             case PrinterCommands.BARCODE_UPCE:
-                barCodeLength = 6;
+                barcodeLength = 6;
                 break;
             case PrinterCommands.BARCODE_EAN13:
-                barCodeLength = 12;
+                barcodeLength = 12;
                 break;
             case PrinterCommands.BARCODE_EAN8:
-                barCodeLength = 7;
+                barcodeLength = 7;
                 break;
         }
         
-        if (barCodeLength == 0 || barCode.length() < barCodeLength) {
+        if (barcodeLength == 0 || barcode.length() < barcodeLength) {
             return this;
         }
-        
-        barCode = barCode.substring(0, barCodeLength);
+    
+        barcode = barcode.substring(0, barcodeLength);
         
         try {
-            switch (barCodeType) {
+            switch (barcodeType) {
                 case PrinterCommands.BARCODE_UPCE:
-                    String firstChar = barCode.substring(0, 1);
+                    String firstChar = barcode.substring(0, 1);
                     if (!firstChar.equals("0") && !firstChar.equals("1")) {
-                        barCode = "0" + barCode.substring(0, 5);
+                        barcode = "0" + barcode.substring(0, 5);
                     }
                     break;
                 case PrinterCommands.BARCODE_UPCA:
                 case PrinterCommands.BARCODE_EAN13:
                 case PrinterCommands.BARCODE_EAN8:
-                    int stringBarCodeLength = barCode.length(), totalBarCodeKey = 0;
-                    for (int i = 0; i < stringBarCodeLength; i++) {
-                        int pos = stringBarCodeLength - 1 - i,
-                            intCode = Integer.parseInt(barCode.substring(pos, pos + 1), 10);
+                    int stringBarcodeLength = barcode.length(), totalBarcodeKey = 0;
+                    for (int i = 0; i < stringBarcodeLength; i++) {
+                        int pos = stringBarcodeLength - 1 - i,
+                            intCode = Integer.parseInt(barcode.substring(pos, pos + 1), 10);
                         if (i % 2 == 0) {
                             intCode = 3 * intCode;
                         }
-                        totalBarCodeKey += intCode;
+                        totalBarcodeKey += intCode;
                     }
                     
-                    String barCodeKey = String.valueOf(10 - (totalBarCodeKey % 10));
-                    if (barCodeKey.length() == 2) {
-                        barCodeKey = "0";
+                    String barcodeKey = String.valueOf(10 - (totalBarcodeKey % 10));
+                    if (barcodeKey.length() == 2) {
+                        barcodeKey = "0";
                     }
-                    barCode += barCodeKey;
+                    barcode += barcodeKey;
                     break;
             }
         } catch (Exception e) {
             e.printStackTrace();
             return this;
         }
-        
-        barCodeLength = barCode.length();
-        byte[] barCodeCommand = new byte[barCodeLength + 4];
-        System.arraycopy(new byte[]{0x1d, 0x6b, (byte) barCodeType}, 0, barCodeCommand, 0, 3);
+    
+        barcodeLength = barcode.length();
+        byte[] barcodeCommand = new byte[barcodeLength + 4];
+        System.arraycopy(new byte[]{0x1d, 0x6b, (byte) barcodeType}, 0, barcodeCommand, 0, 3);
         
         try {
-            for (int i = 0; i < barCodeLength; i++) {
-                barCodeCommand[i + 3] = (byte) (Integer.parseInt(barCode.substring(i, i + 1), 10) + 48);
+            for (int i = 0; i < barcodeLength; i++) {
+                barcodeCommand[i + 3] = (byte) (Integer.parseInt(barcode.substring(i, i + 1), 10) + 48);
             }
             
             this.outputStream.write(new byte[]{0x1d, 0x68, (byte) heightPx});
-            this.outputStream.write(barCodeCommand);
+            this.outputStream.write(barcodeCommand);
             Thread.sleep(PrinterCommands.TIME_BETWEEN_TWO_PRINT * 2);
         } catch (IOException e) {
             e.printStackTrace();
@@ -280,11 +395,21 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         return this;
     }
     
+    /**
+     * Forces the transition to a new line with the connected printer.
+     *
+     * @return Fluent interface
+     */
     public BluetoothPrinterSocketConnexion newLine() {
         return this.newLine(null);
     }
     
-    public BluetoothPrinterSocketConnexion newLine(byte[] textAlign) {
+    /**
+     * Forces the transition to a new line and set the alignment of text and barcodes with the connected printer.
+     * @param align Set the alignment of text and barcodes. Use PrinterCommands.TEXT_ALIGN_... constants
+     * @return Fluent interface
+     */
+    public BluetoothPrinterSocketConnexion newLine(byte[] align) {
         if (!this.isOpenedStream()) {
             return this;
         }
@@ -292,8 +417,8 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         try {
             this.outputStream.write(PrinterCommands.LF);
             Thread.sleep(PrinterCommands.TIME_BETWEEN_TWO_PRINT);
-            if (textAlign != null) {
-                this.outputStream.write(textAlign);
+            if (align != null) {
+                this.outputStream.write(align);
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -11,10 +11,11 @@ import lib.printer.thermal.PrinterCommands;
 public class PrinterTextParserImg implements PrinterTextParserElement {
     
     /**
+     * Convert Drawable instance to a hexadecimal string of the image data.
      *
-     * @param printer
-     * @param drawable
-     * @return
+     * @param printer A Printer instance that will print the image.
+     * @param drawable Drawable instance to be converted.
+     * @return A hexadecimal string of the image data. Empty string if Drawable cannot be cast to BitmapDrawable.
      */
     public static String bitmapToHexadecimalString(Printer printer, Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
@@ -24,25 +25,33 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
     }
     
     /**
+     * Convert BitmapDrawable instance to a hexadecimal string of the image data.
      *
-     * @param printer
-     * @param bitmapDrawable
-     * @return
+     * @param printer A Printer instance that will print the image.
+     * @param bitmapDrawable BitmapDrawable instance to be converted.
+     * @return A hexadecimal string of the image data.
      */
     public static String bitmapToHexadecimalString(Printer printer, BitmapDrawable bitmapDrawable) {
         return PrinterTextParserImg.bitmapToHexadecimalString(printer, bitmapDrawable.getBitmap());
     }
     
     /**
+     * Convert Bitmap instance to a hexadecimal string of the image data.
      *
-     * @param printer
-     * @param bitmap
-     * @return
+     * @param printer A Printer instance that will print the image.
+     * @param bitmap Bitmap instance to be converted.
+     * @return A hexadecimal string of the image data.
      */
     public static String bitmapToHexadecimalString(Printer printer, Bitmap bitmap) {
         return PrinterTextParserImg.bytesToHexadecimalString(printer.bitmapToBytes(bitmap));
     }
     
+    /**
+     * Convert byte array to a hexadecimal string of the image data.
+     *
+     * @param bytes Bytes contain the image in ESC/POS command.
+     * @return A hexadecimal string of the image data.
+     */
     public static String bytesToHexadecimalString(byte[] bytes) {
         StringBuffer imageHexString = new StringBuffer();
         for (int i = 0; i < bytes.length; i++) {
@@ -55,6 +64,12 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
         return imageHexString.toString();
     }
     
+    /**
+     * Convert hexadecimal string of the image data to bytes ESC/POS command.
+     *
+     * @param hexString Hexadecimal string of the image data.
+     * @return Bytes contain the image in ESC/POS command.
+     */
     public static byte[] hexadecimalStringToBytes(String hexString) {
         byte[] bytes = new byte[0];
         
@@ -75,6 +90,13 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
     private int length = 0;
     private byte[] image;
     
+    /**
+     * Create new instance of PrinterTextParserImg.
+     *
+     * @param printerTextParserColumn Parent PrinterTextParserColumn instance.
+     * @param textAlign Set the image alignment. Use PrinterTextParser.TAGS_ALIGN_... constants.
+     * @param hexadecimalString Hexadecimal string of the image data.
+     */
     public PrinterTextParserImg(PrinterTextParserColumn printerTextParserColumn, String textAlign, String hexadecimalString) {
         Printer printer = printerTextParserColumn.getLine().getTextParser().getPrinter();
         
@@ -110,14 +132,30 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
         this.image = image;
     }
     
+    /**
+     * Get bytes that contain the image in ESC/POS command.
+     *
+     * @return Bytes contain the image in ESC/POS command
+     */
     public byte[] getImage() {
         return this.image;
     }
     
+    /**
+     * Get the image width in char length.
+     *
+     * @return int
+     */
     @Override
     public int length() {
         return this.length;
     }
+    
+    /**
+     * Get the printer command alignment.
+     *
+     * @return A printer command alignment
+     */
     @Override
     public byte[] getAlign() {
         return PrinterCommands.TEXT_ALIGN_LEFT;

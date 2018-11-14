@@ -118,16 +118,22 @@ Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `Bit
 - `</img>` must be directly followed by a new line `\n`.
 - You can't write text on a line that contains `<img></img>`.
 
-### Bar code
+### Barcode
 
-`<barcode></barcode>` tag allows you to print a bar code. Inside the tag you need to write the code number to print.
+`<barcode></barcode>` tag allows you to print a barcode. Inside the tag you need to write the code number to print.
 
-- `<barcode>451278452159</barcode>` : **(12 numbers)** Prints a EAN13 bar code with a height of 10 millimeters.
-- `<barcode height='15'>451278452159</barcode>` : **(12 numbers)** Prints a EAN13 bar code with a height of 15 millimeters.
-- `<barcode type='ean13'>451278452159</barcode>` : **(12 numbers)** Prints a EAN13 bar code with a height of 10 millimeters.
-- `<barcode type='ean8'>4512784</barcode>` : **(7 numbers)** Prints a EAN8 bar code with a height of 10 millimeters.
-- `<barcode type='upca' height='20'>4512784521</barcode>` : **(11 numbers)** Prints a UPC-A bar code with a height of 20 millimeters.
-- `<barcode type='upce' height='25'>051278</barcode>` : **(6 numbers)** Prints a UPC-E bar code with a height of 25 millimeters.
+- `<barcode>451278452159</barcode>` : **(12 numbers)**
+Prints a EAN13 barcode with a height of 10 millimeters.
+- `<barcode height='15'>451278452159</barcode>` : **(12 numbers)**
+Prints a EAN13 barcode with a height of 15 millimeters.
+- `<barcode type='ean13'>451278452159</barcode>` : **(12 numbers)**
+Prints a EAN13 barcode with a height of 10 millimeters.
+- `<barcode type='ean8'>4512784</barcode>` : **(7 numbers)**
+Prints a EAN8 barcode with a height of 10 millimeters.
+- `<barcode type='upca' height='20'>4512784521</barcode>` : **(11 numbers)**
+Prints a UPC-A barcode with a height of 20 millimeters.
+- `<barcode type='upce' height='25'>051278</barcode>` : **(6 numbers)**
+Prints a UPC-E barcode with a height of 25 millimeters.
 
 **/!\\ WARNING /!\\** : This tag has several constraints :
 
@@ -140,60 +146,89 @@ Use `PrinterTextParserImg.bitmapToHexadecimalString` to convert `Drawable`, `Bit
 
 ### Class : `lib.printer.thermal.bluetooth.BluetoothPrinters`
 
-...
+#### **Static** Method : `selectFirstPairedBluetoothPrinter()`
+Easy way to get the first bluetooth printer paired / connected.
+- **return** `BluetoothPrinterSocketConnexion`
 
-### Class : `lib.printer.thermal.bluetooth.BluetoothPrinterSocketConnexion`
-
-...
+#### Method : `getList()`
+Get a list of bluetooth printers.
+- **return** `BluetoothPrinterSocketConnexion[]`
 
 ### Class : `lib.printer.thermal.Printer`
 
 #### Constructor : `Printer(BluetoothPrinterSocketConnexion printer, int printerDpi, float printingWidthMM, int nbrCharactersPerLine)`
-- **param** *printer* : Instance of a connected bluetooth printer
-- **param** *printerDpi* : DPI of the connected printer
-- **param** *printingWidthMM* : Printing width in millimeters
-- **param** *nbrCharactersPerLine* : The maximum number of characters that can be printed on a line.
+- **param** `BluetoothPrinterSocketConnexion printer` : Instance of a connected bluetooth printer
+- **param** `int printerDpi` : DPI of the connected printer
+- **param** `float printingWidthMM` : Printing width in millimeters
+- **param** `int nbrCharactersPerLine` : The maximum number of characters that can be printed on a line.
 
 #### Method : `disconnectPrinter()`
 Close the Bluetooth connexion with the printer.
-- **return** *Printer* : Fluent interface
+- **return** `Printer` : Fluent interface
 
 #### Method : `getNbrCharactersPerLine()`
 Get the maximum number of characters that can be printed on a line.
-- **return** *int*
+- **return** `int`
 
 #### Method : `getPrintingWidthMM()`
 Get the printing width in millimeters
-- **return** *float*
+- **return** `float`
 
 #### Method : `getPrinterDpi()`
 Get the printer DPI
-- **return** *int*
+- **return** `int`
 
-#### Method : `getPrintingWidthPx`
+#### Method : `getPrintingWidthPx()`
 Get the printing width in dot
-- **return** *int*
+- **return** `int`
 
 #### Method : `getCharSizeWidthPx()`
 Get the number of dot that a printed character contain
-- **return** *int*
+- **return** `int`
 
 #### Method : `mmToPx(float mmSize)`
-Convert from millimeters to dot the mmSize variable.
-- **param** *mmSize* : Distance in millimeters to be converted
-- **return** *int*
+Convert the mmSize variable from millimeters to dot.
+- **param** `float mmSize` : Distance in millimeters to be converted
+- **return** `int` : Dot size of mmSize.
 
 #### Method : `printFormattedText(String text)`
 Print a formatted text. Read the ["Formatted Text : Syntax guide" section](#formatted-text--syntax-guide) for more information about text formatting options.
-- **param** *text* : Formatted text to be printed.
-- **return** *Printer* : Fluent interface
+- **param** `String text` : Formatted text to be printed.
+- **return** `Printer` : Fluent interface
 
 #### Method : `bitmapToBytes(Bitmap bitmap)`
 Convert Bitmap object to ESC/POS image.
-- **param** *bitmap* : Instance of Bitmap
-- **return** *byte[]* : Bytes contain the image in ESC/POS command
+- **param** `Bitmap bitmap` : Instance of Bitmap
+- **return** `byte[]` : Bytes contain the image in ESC/POS command
 
 ### Class : `lib.printer.thermal.textparser.PrinterTextParserImg`
 
-...
+#### **Static** Method : `bitmapToHexadecimalString(Printer printer, Drawable drawable)`
+Convert Drawable instance to a hexadecimal string of the image data.
+- **param** `Printer printer` : A Printer instance that will print the image.
+- **param** `Drawable drawable` : Drawable instance to be converted.
+- **return** `String` : A hexadecimal string of the image data. Empty string if Drawable cannot be cast to BitmapDrawable.
+
+#### **Static** Method : `bitmapToHexadecimalString(Printer printer, BitmapDrawable bitmapDrawable)`
+Convert BitmapDrawable instance to a hexadecimal string of the image data.
+- **param** `Printer printer` : A Printer instance that will print the image.
+- **param** `BitmapDrawable bitmapDrawable` : BitmapDrawable instance to be converted.
+- **return** `String` : A hexadecimal string of the image data.
+
+#### **Static** Method : `bitmapToHexadecimalString(Printer printer, Bitmap bitmap)`
+Convert Bitmap instance to a hexadecimal string of the image data.
+- **param** `Printer printer` : A Printer instance that will print the image.
+- **param** `Bitmap bitmap` : Bitmap instance to be converted.
+- **return** `String` : A hexadecimal string of the image data.
+
+#### **Static** Method : `bytesToHexadecimalString(byte[] bytes)`
+Convert byte array to a hexadecimal string of the image data.
+- **param** `byte[] bytes` : Bytes contain the image in ESC/POS command.
+- **return** `String` : A hexadecimal string of the image data.
+
+#### **Static** Method : `hexadecimalStringToBytes(String hexString)`
+Convert hexadecimal string of the image data to bytes ESC/POS command.
+- **param** `String hexString` : Hexadecimal string of the image data.
+- **return** `byte[]` : Bytes contain the image in ESC/POS command.
+
 
