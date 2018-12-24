@@ -29,7 +29,7 @@ public class BluetoothPrinterSocketConnexion extends BluetoothDeviceSocketConnex
         int i = 8;
         for (int posY = 0; posY < bitmapHeight; posY++) {
             for (int j = 0; j < bitmapWidth; j += 8) {
-                StringBuffer stringBinary = new StringBuffer();
+                StringBuilder stringBinary = new StringBuilder();
                 for (int k = 0; k < 8; k++) {
                     int posX = j + k;
                     if (posX < bitmapWidth) {

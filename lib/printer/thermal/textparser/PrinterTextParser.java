@@ -36,7 +36,7 @@ public class PrinterTextParser {
     private static String regexAlignTags;
     public static String getRegexAlignTags() {
         if(PrinterTextParser.regexAlignTags == null) {
-            StringBuffer regexAlignTags = new StringBuffer();
+            StringBuilder regexAlignTags = new StringBuilder();
             for (int i = 0; i < PrinterTextParser.TAGS_ALIGN.length; i++) {
                 regexAlignTags.append("|\\[").append(PrinterTextParser.TAGS_ALIGN[i]).append("\\]");
             }
@@ -64,18 +64,14 @@ public class PrinterTextParser {
         }
         
         byte[][] newArr = new byte[arr.length - 1][];
-        for (int i = 0; i < newArr.length; i++) {
-            newArr[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, newArr, 0, newArr.length);
         
         return newArr;
     }
     
     public static byte[][] arrayBytePush(byte[][] arr, byte[] add) {
         byte[][] newArr = new byte[arr.length + 1][];
-        for (int i = 0; i < arr.length; i++) {
-            newArr[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, newArr, 0, arr.length);
         newArr[arr.length] = add;
         return newArr;
     }

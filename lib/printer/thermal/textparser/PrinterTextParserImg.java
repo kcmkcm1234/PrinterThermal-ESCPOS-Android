@@ -53,9 +53,9 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
      * @return A hexadecimal string of the image data.
      */
     public static String bytesToHexadecimalString(byte[] bytes) {
-        StringBuffer imageHexString = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            String hexString = Integer.toHexString(bytes[i] & 0xFF);
+        StringBuilder imageHexString = new StringBuilder();
+        for (byte aByte : bytes) {
+            String hexString = Integer.toHexString(aByte & 0xFF);
             if (hexString.length() == 1) {
                 hexString = "0" + hexString;
             }

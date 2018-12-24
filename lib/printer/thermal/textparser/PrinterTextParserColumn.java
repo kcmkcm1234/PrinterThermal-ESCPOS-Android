@@ -6,7 +6,7 @@ import lib.printer.thermal.PrinterCommands;
 public class PrinterTextParserColumn {
     
     private static String generateSpace(int nbrSpace) {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < nbrSpace; i++) {
             str.append(" ");
         }
@@ -258,18 +258,14 @@ public class PrinterTextParserColumn {
     private PrinterTextParserColumn prependElement(PrinterTextParserElement element) {
         PrinterTextParserElement[] elementsTmp = new PrinterTextParserElement[this.elements.length + 1];
         elementsTmp[0] = element;
-        for (int i = 1; i <= this.elements.length; i++) {
-            elementsTmp[i] = this.elements[i - 1];
-        }
+        System.arraycopy(this.elements, 0, elementsTmp, 1, this.elements.length);
         this.elements = elementsTmp;
         return this;
     }
     
     private PrinterTextParserColumn appendElement(PrinterTextParserElement element) {
         PrinterTextParserElement[] elementsTmp = new PrinterTextParserElement[this.elements.length + 1];
-        for (int i = 0; i < this.elements.length; i++) {
-            elementsTmp[i] = this.elements[i];
-        }
+        System.arraycopy(this.elements, 0, elementsTmp, 0, this.elements.length);
         elementsTmp[this.elements.length] = element;
         this.elements = elementsTmp;
         return this;
