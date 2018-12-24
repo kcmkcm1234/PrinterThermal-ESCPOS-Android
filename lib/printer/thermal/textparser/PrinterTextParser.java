@@ -1,5 +1,7 @@
 package lib.printer.thermal.textparser;
 
+import java.util.Arrays;
+
 import lib.printer.thermal.Printer;
 import lib.printer.thermal.PrinterCommands;
 
@@ -114,7 +116,7 @@ public class PrinterTextParser {
         return this;
     }
     public PrinterTextParser dropLastTextSize(byte[] isLastByte) {
-        if (this.textSize[this.textSize.length - 1].equals(isLastByte)) {
+        if (Arrays.equals(this.textSize[this.textSize.length - 1], isLastByte)) {
             this.textSize = PrinterTextParser.arrayByteDropLast(this.textSize);
         }
         return this;
@@ -130,7 +132,7 @@ public class PrinterTextParser {
     }
     
     public PrinterTextParser dropTextBold(byte[] isLastByte) {
-        if (this.textBold[this.textBold.length - 1].equals(isLastByte)) {
+        if (Arrays.equals(this.textBold[this.textBold.length - 1], isLastByte)) {
             this.textBold = PrinterTextParser.arrayByteDropLast(this.textBold);
         }
         return this;
@@ -146,7 +148,7 @@ public class PrinterTextParser {
     }
     
     public PrinterTextParser dropLastTextUnderline(byte[] isLastByte) {
-        if (this.textUnderline[this.textUnderline.length - 1].equals(isLastByte)) {
+        if (Arrays.equals(this.textUnderline[this.textUnderline.length - 1], isLastByte)) {
             this.textUnderline = PrinterTextParser.arrayByteDropLast(this.textUnderline);
         }
         return this;

@@ -216,11 +216,6 @@ public class PrinterTextParserColumn {
         }
     }
     
-    /**
-     *
-     * @param text
-     * @return Fluent method
-     */
     private PrinterTextParserColumn prependString(String text) {
         PrinterTextParser textParser = this.textParserLine.getTextParser();
         return this.prependString(text, textParser.getLastTextSize(), textParser.getLastTextBold(), textParser.getLastTextUnderline());

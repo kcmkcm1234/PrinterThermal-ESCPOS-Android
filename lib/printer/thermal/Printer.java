@@ -1,8 +1,6 @@
 package lib.printer.thermal;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import lib.printer.thermal.bluetooth.BluetoothPrinterSocketConnexion;
 import lib.printer.thermal.textparser.PrinterTextParser;

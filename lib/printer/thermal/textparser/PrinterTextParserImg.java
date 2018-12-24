@@ -87,7 +87,7 @@ public class PrinterTextParserImg implements PrinterTextParserElement {
     }
     
     
-    private int length = 0;
+    private int length;
     private byte[] image;
     
     /**

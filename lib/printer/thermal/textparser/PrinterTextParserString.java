@@ -1,5 +1,7 @@
 package lib.printer.thermal.textparser;
 
+import java.util.Arrays;
+
 import lib.printer.thermal.PrinterCommands;
 
 public class PrinterTextParserString implements PrinterTextParserElement {
@@ -36,7 +38,7 @@ public class PrinterTextParserString implements PrinterTextParserElement {
     public int length() {
         int coef = 1;
         
-        if (this.textSize.equals(PrinterCommands.TEXT_SIZE_DOUBLE_WIDTH) || this.textSize.equals(PrinterCommands.TEXT_SIZE_BIG)) {
+        if (Arrays.equals(this.textSize, PrinterCommands.TEXT_SIZE_DOUBLE_WIDTH) || Arrays.equals(this.textSize, PrinterCommands.TEXT_SIZE_BIG)) {
             coef = 2;
         }
         
